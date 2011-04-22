@@ -1,3 +1,6 @@
-Info messages for iOS inspired by Android Toast object
+Info messages for iOS inspired by Android Toast object.
+Features:
+* Show toast object with custom text
+* Show toast object with custom image
 
 The library is public domain. Written by Nik S Dyonin.
