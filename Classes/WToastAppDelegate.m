@@ -31,6 +31,16 @@
 	[self.window addSubview:showMessageButton];
 	[showMessageButton addTarget:self action:@selector(showMessage:) forControlEvents:UIControlEventTouchUpInside];
 	
+	UIButton *showImageButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+	[showImageButton setTitle:@"Show image" forState:UIControlStateNormal];
+	[showImageButton sizeToFit];
+	tmpRect = showImageButton.frame;
+	tmpRect.origin.x = floor((self.window.frame.size.width - tmpRect.size.width) / 2.0f);
+	tmpRect.origin.y = showMessageButton.frame.origin.y + showMessageButton.frame.size.height + 30.0f;
+	showImageButton.frame = tmpRect;
+	[self.window addSubview:showImageButton];
+	[showImageButton addTarget:self action:@selector(showImage:) forControlEvents:UIControlEventTouchUpInside];
+	
 	[self.window makeKeyAndVisible];
 	return YES;
 }
@@ -42,6 +52,10 @@
 		text = @"No text!";
 	}
 	[WToast showWithText:text];
+}
+
+- (void)showImage:(UIButton *)sender {
+	[WToast showWithImage:[UIImage imageNamed:@"test.png"]];
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)aTextField {

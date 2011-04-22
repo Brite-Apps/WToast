@@ -15,6 +15,7 @@
 		AF53D3C5134F4EAB00519C3A /* WToast.m in Sources */ = {isa = PBXBuildFile; fileRef = AF53D3C4134F4EAB00519C3A /* WToast.m */; };
 		AF53D486134F5CE200519C3A /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF53D485134F5CE200519C3A /* QuartzCore.framework */; };
 		AF53D4A1134F5CF100519C3A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF53D4A0134F5CF100519C3A /* CoreGraphics.framework */; };
+		AFA2273E1361D9BD005139AD /* test.png in Resources */ = {isa = PBXBuildFile; fileRef = AFA2273D1361D9BD005139AD /* test.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +32,7 @@
 		AF53D3C4134F4EAB00519C3A /* WToast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WToast.m; sourceTree = "<group>"; };
 		AF53D485134F5CE200519C3A /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		AF53D4A0134F5CF100519C3A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		AFA2273D1361D9BD005139AD /* test.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = test.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,6 +93,7 @@
 			isa = PBXGroup;
 			children = (
 				28AD733E0D9D9553002E5188 /* MainWindow.xib */,
+				AFA2273D1361D9BD005139AD /* test.png */,
 				8D1107310486CEB800E47090 /* WToast-Info.plist */,
 			);
 			name = Resources;
@@ -166,6 +169,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */,
+				AFA2273E1361D9BD005139AD /* test.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

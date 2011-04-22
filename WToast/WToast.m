@@ -83,8 +83,41 @@
 	return toast;
 }
 
++ (WToast *)__createWithImage:(UIImage *)image {
+	float screenWidth = [UIScreen mainScreen].bounds.size.width;
+	float screenHeight = [UIScreen mainScreen].bounds.size.height;
+	float x = 10.0f;
+	float width = screenWidth - x * 2.0f;
+
+	UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
+	CGSize sz = imageView.frame.size;
+
+	CGRect tmpRect;
+	tmpRect.size.width = width;
+	tmpRect.size.height = MAX(sz.height + 20.0f, 38.0f);
+	tmpRect.origin.x = floor((screenWidth - width) / 2.0f);
+	tmpRect.origin.y = floor(screenHeight - tmpRect.size.height - 15.0f);
+
+	WToast *toast = [[WToast alloc] initWithFrame:tmpRect];
+	toast.backgroundColor = RGBA(0, 0, 0, 0.8f);
+	CALayer *layer = toast.layer;
+	layer.masksToBounds = YES;
+	layer.cornerRadius = 5.0f;
+
+	tmpRect.origin.x = floor((toast.frame.size.width - sz.width) / 2.0f);
+	tmpRect.origin.y = floor((toast.frame.size.height - sz.height) / 2.0f);
+	tmpRect.size = sz;
+	imageView.frame = tmpRect;
+	[toast addSubview:imageView];
+	[imageView release];
+	
+	toast.alpha = 0.0f;
+	
+	return toast;
+}
+
 /**
- * Show toast in application window
+ * Show toast with text in application window
  * @param text Text to print in toast window
  */
 + (void)showWithText:(NSString *)text {
@@ -94,6 +127,20 @@
 	[mainWindow addSubview:toast];
 	[toast release];
 
+	[toast __show];
+}
+
+/**
+ * Show toast with image in application window
+ * @param image Image to show in toast window
+ */
++ (void)showWithImage:(UIImage *)image {
+	WToast *toast = [WToast __createWithImage:image];
+	
+	UIWindow *mainWindow = [[UIApplication sharedApplication] keyWindow];
+	[mainWindow addSubview:toast];
+	[toast release];
+	
 	[toast __show];
 }
 
