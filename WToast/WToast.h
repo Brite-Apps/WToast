@@ -8,5 +8,6 @@
 @interface WToast : UIView
 
 + (void)showWithText:(NSString *)text;
++ (void)showWithImage:(UIImage *)image;
 
 @end
