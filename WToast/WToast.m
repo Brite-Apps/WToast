@@ -42,8 +42,33 @@
 }
 
 + (WToast *)__createWithText:(NSString *)text {
-	float screenWidth = [UIScreen mainScreen].bounds.size.width;
-	float screenHeight = [UIScreen mainScreen].bounds.size.height;
+	float screenWidth, screenHeight;
+	CGSize screenSize = [UIScreen mainScreen].bounds.size;
+	
+	UIInterfaceOrientation orientation = [UIApplication sharedApplication].statusBarOrientation;
+    switch (orientation) { 
+        case UIInterfaceOrientationPortraitUpsideDown: {
+			screenWidth = MIN(screenSize.width, screenSize.height);
+			screenHeight = MAX(screenSize.width, screenSize.height);
+            break;
+		}
+        case UIInterfaceOrientationLandscapeLeft: {
+            screenWidth = MAX(screenSize.width, screenSize.height);
+			screenHeight = MIN(screenSize.width, screenSize.height);
+            break;
+		}
+        case UIInterfaceOrientationLandscapeRight: {
+			screenWidth = MAX(screenSize.width, screenSize.height);
+			screenHeight = MIN(screenSize.width, screenSize.height);
+            break;
+		}
+        default: {
+            screenWidth = MIN(screenSize.width, screenSize.height);
+			screenHeight = MAX(screenSize.width, screenSize.height);
+            break;
+		}
+    }
+	
 	float x = 10.0f;
 	float width = screenWidth - x * 2.0f;
 
@@ -58,11 +83,9 @@
 				 constrainedToSize:CGSizeMake(width - 20.0f, 9999.0f)
 					 lineBreakMode:textLabel.lineBreakMode];
 
-	CGRect tmpRect;
+	CGRect tmpRect = CGRectZero;
 	tmpRect.size.width = width;
 	tmpRect.size.height = MAX(sz.height + 20.0f, 38.0f);
-	tmpRect.origin.x = floor((screenWidth - width) / 2.0f);
-	tmpRect.origin.y = floor(screenHeight - tmpRect.size.height - 15.0f);
 
 	WToast *toast = [[WToast alloc] initWithFrame:tmpRect];
 	toast.backgroundColor = RGBA(0, 0, 0, 0.8f);
@@ -84,19 +107,42 @@
 }
 
 + (WToast *)__createWithImage:(UIImage *)image {
-	float screenWidth = [UIScreen mainScreen].bounds.size.width;
-	float screenHeight = [UIScreen mainScreen].bounds.size.height;
+	float screenWidth, screenHeight;
+	CGSize screenSize = [UIScreen mainScreen].bounds.size;
+	
+	UIInterfaceOrientation orientation = [UIApplication sharedApplication].statusBarOrientation;
+    switch (orientation) { 
+        case UIInterfaceOrientationPortraitUpsideDown: {
+			screenWidth = MIN(screenSize.width, screenSize.height);
+			screenHeight = MAX(screenSize.width, screenSize.height);
+            break;
+		}
+        case UIInterfaceOrientationLandscapeLeft: {
+            screenWidth = MAX(screenSize.width, screenSize.height);
+			screenHeight = MIN(screenSize.width, screenSize.height);
+            break;
+		}
+        case UIInterfaceOrientationLandscapeRight: {
+			screenWidth = MAX(screenSize.width, screenSize.height);
+			screenHeight = MIN(screenSize.width, screenSize.height);
+            break;
+		}
+        default: {
+            screenWidth = MIN(screenSize.width, screenSize.height);
+			screenHeight = MAX(screenSize.width, screenSize.height);
+            break;
+		}
+    }
+	
 	float x = 10.0f;
 	float width = screenWidth - x * 2.0f;
 
 	UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
 	CGSize sz = imageView.frame.size;
 
-	CGRect tmpRect;
+	CGRect tmpRect = CGRectZero;
 	tmpRect.size.width = width;
 	tmpRect.size.height = MAX(sz.height + 20.0f, 38.0f);
-	tmpRect.origin.x = floor((screenWidth - width) / 2.0f);
-	tmpRect.origin.y = floor(screenHeight - tmpRect.size.height - 15.0f);
 
 	WToast *toast = [[WToast alloc] initWithFrame:tmpRect];
 	toast.backgroundColor = RGBA(0, 0, 0, 0.8f);
@@ -116,17 +162,67 @@
 	return toast;
 }
 
+- (void)__flipViewAccordingToStatusBarOrientation {
+	UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
+    CGFloat angle = 0.0;
+	CGSize screenSize = [UIScreen mainScreen].bounds.size;
+	float x, y;
+	float screenWidth, screenHeight;
+
+    switch (orientation) { 
+        case UIInterfaceOrientationPortraitUpsideDown: {
+            angle = M_PI;
+			screenWidth = MIN(screenSize.width, screenSize.height);
+			screenHeight = MAX(screenSize.width, screenSize.height);
+			x = floor((screenWidth - self.bounds.size.width) / 2.0f);
+			y = 15.0f;
+            break;
+		}
+        case UIInterfaceOrientationLandscapeLeft: {
+            angle = - M_PI / 2.0f;
+			screenWidth = MAX(screenSize.width, screenSize.height);
+			screenHeight = MIN(screenSize.width, screenSize.height);
+			x = screenHeight - self.bounds.size.height - 15.0f;
+			y = floor((screenWidth - self.bounds.size.width) / 2.0f);
+            break;
+		}
+        case UIInterfaceOrientationLandscapeRight: {
+            angle = M_PI / 2.0f;
+			screenWidth = MAX(screenSize.width, screenSize.height);
+			screenHeight = MIN(screenSize.width, screenSize.height);
+			x = 15.0f;
+			y = floor((screenWidth - self.bounds.size.width) / 2.0f);
+            break;
+		}
+        default: {
+            angle = 0.0;
+			screenWidth = MIN(screenSize.width, screenSize.height);
+			screenHeight = MAX(screenSize.width, screenSize.height);
+			x = floor((screenWidth - self.bounds.size.width) / 2.0f);
+			y = screenHeight - self.bounds.size.height - 15.0f;
+            break;
+		}
+    }
+
+    self.transform = CGAffineTransformMakeRotation(angle);
+
+	CGRect f = self.frame;
+	f.origin = CGPointMake(x, y);
+	self.frame = f;
+}
+
 /**
  * Show toast with text in application window
  * @param text Text to print in toast window
  */
 + (void)showWithText:(NSString *)text {
 	WToast *toast = [WToast __createWithText:text];
-
+	
 	UIWindow *mainWindow = [[UIApplication sharedApplication] keyWindow];
 	[mainWindow addSubview:toast];
 	[toast release];
-
+	
+	[toast __flipViewAccordingToStatusBarOrientation];
 	[toast __show];
 }
 
@@ -141,6 +237,7 @@
 	[mainWindow addSubview:toast];
 	[toast release];
 	
+	[toast __flipViewAccordingToStatusBarOrientation];
 	[toast __show];
 }
 

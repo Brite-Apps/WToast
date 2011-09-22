@@ -12,6 +12,7 @@
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AD733E0D9D9553002E5188 /* MainWindow.xib */; };
+		AF5198C8142BBC41003E97EE /* WToastViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AF5198C7142BBC41003E97EE /* WToastViewController.m */; };
 		AF53D3C5134F4EAB00519C3A /* WToast.m in Sources */ = {isa = PBXBuildFile; fileRef = AF53D3C4134F4EAB00519C3A /* WToast.m */; };
 		AF53D486134F5CE200519C3A /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF53D485134F5CE200519C3A /* QuartzCore.framework */; };
 		AF53D4A1134F5CF100519C3A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF53D4A0134F5CF100519C3A /* CoreGraphics.framework */; };
@@ -28,6 +29,8 @@
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* WToast_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WToast_Prefix.pch; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* WToast-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "WToast-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
+		AF5198C6142BBC41003E97EE /* WToastViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WToastViewController.h; sourceTree = "<group>"; };
+		AF5198C7142BBC41003E97EE /* WToastViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WToastViewController.m; sourceTree = "<group>"; };
 		AF53D3C3134F4EAB00519C3A /* WToast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WToast.h; sourceTree = "<group>"; };
 		AF53D3C4134F4EAB00519C3A /* WToast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WToast.m; sourceTree = "<group>"; };
 		AF53D485134F5CE200519C3A /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -55,6 +58,8 @@
 			children = (
 				1D3623240D0F684500981E51 /* WToastAppDelegate.h */,
 				1D3623250D0F684500981E51 /* WToastAppDelegate.m */,
+				AF5198C6142BBC41003E97EE /* WToastViewController.h */,
+				AF5198C7142BBC41003E97EE /* WToastViewController.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -186,6 +191,7 @@
 				1D60589B0D05DD56006BFB54 /* main.m in Sources */,
 				1D3623260D0F684500981E51 /* WToastAppDelegate.m in Sources */,
 				AF53D3C5134F4EAB00519C3A /* WToast.m in Sources */,
+				AF5198C8142BBC41003E97EE /* WToastViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -230,6 +236,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -245,6 +252,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
