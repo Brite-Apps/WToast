@@ -8,12 +8,19 @@
 
 @implementation WToastAppDelegate
 
-@synthesize window;
-
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-	v = [[WToastViewController alloc] init];
-	[self.window addSubview:v.view];
-	[self.window makeKeyAndVisible];
+	window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+	window.backgroundColor = [UIColor whiteColor];
+	
+	tabBarController = [[UITabBarController alloc] init];
+
+	WToastViewController *v = [[WToastViewController alloc] init];
+	v.tabBarItem.title = @"Test tab";
+	tabBarController.viewControllers = [NSArray arrayWithObject:v];
+	[v release];
+	
+	[window addSubview:tabBarController.view];
+	[window makeKeyAndVisible];
 	return YES;
 }
 
@@ -37,7 +44,7 @@
 
 - (void)dealloc {
 	[window release];
-	[v release];
+	[tabBarController release];
 	[super dealloc];
 }
 

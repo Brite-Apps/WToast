@@ -2,13 +2,9 @@
  * @class WToastAppDelegate
  */
 
-@class WToastViewController;
-
-@interface WToastAppDelegate : NSObject <UIApplicationDelegate, UITextFieldDelegate> {
+@interface WToastAppDelegate : NSObject <UIApplicationDelegate> {
 	UIWindow *window;
-	WToastViewController *v;
+	UITabBarController *tabBarController;
 }
-
-@property (nonatomic, retain) IBOutlet UIWindow *window;
 
 @end

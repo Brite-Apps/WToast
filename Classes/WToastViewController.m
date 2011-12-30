@@ -8,10 +8,10 @@
 
 @implementation WToastViewController
 
-- (void)redrawInterface {
+- (void)redrawInterface:(UIInterfaceOrientation)orientation {
 	CGRect screenFrame = [UIScreen mainScreen].bounds;
 	float width, height;
-	if (UIInterfaceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation)) {
+	if (UIInterfaceOrientationIsLandscape(orientation)) {
 		width = MAX(screenFrame.size.width, screenFrame.size.height);
 		height = MIN(screenFrame.size.width, screenFrame.size.height);
 	}
@@ -90,7 +90,7 @@
 }
 
 - (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
-	[self redrawInterface];
+	[self redrawInterface:toInterfaceOrientation];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation {

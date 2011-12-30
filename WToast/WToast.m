@@ -7,38 +7,28 @@
 #import "WToast.h"
 #import <QuartzCore/QuartzCore.h>
 
+#define TABBAR_OFFSET 44.0f
+
 @implementation WToast
 
 - (void)__show {
-	[UIView beginAnimations:@"show" context:nil];
-	[UIView setAnimationDelegate:self];
-	[UIView setAnimationDuration:0.2f];
-	[UIView setAnimationDidStopSelector:@selector(__animationDidStop:__finished:__context:)];
-	self.alpha = 1.0f;
-	[UIView commitAnimations];
+	[UIView animateWithDuration:0.2f
+					 animations:^{
+						 self.alpha = 1.0f;
+					 }
+					 completion:^(BOOL finished) {
+						 [self performSelector:@selector(__hide) withObject:nil afterDelay:1];
+					 }];
 }
 
 - (void)__hide {
-	[self performSelectorOnMainThread:@selector(__hideThread) withObject:nil waitUntilDone:NO];
-}
-
-- (void)__hideThread {
-	[UIView beginAnimations:@"hide" context:nil];
-	[UIView setAnimationDelegate:self];
-	[UIView setAnimationDuration:0.8f];
-	[UIView setAnimationDidStopSelector:@selector(__animationDidStop:__finished:__context:)];
-	self.alpha = 0.0f;
-	[UIView commitAnimations];
-}
-
-- (void)__animationDidStop:(NSString *)animationID __finished:(NSNumber *)finished __context:(void *)context {
-	if ([animationID isEqualToString:@"hide"]) {
-		[self removeFromSuperview];
-		self = nil;
-	}
-	else if ([animationID isEqualToString:@"show"]) {
-		[NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(__hide) userInfo:nil repeats:NO];
-	}
+	[UIView animateWithDuration:0.8f
+					 animations:^{
+						 self.alpha = 0.0f;
+					 }
+					 completion:^(BOOL finished) {
+						 [self removeFromSuperview], [self release];
+					 }];
 }
 
 + (WToast *)__createWithText:(NSString *)text {
@@ -175,14 +165,14 @@
 			screenWidth = MIN(screenSize.width, screenSize.height);
 			screenHeight = MAX(screenSize.width, screenSize.height);
 			x = floor((screenWidth - self.bounds.size.width) / 2.0f);
-			y = 15.0f;
+			y = 15.0f + TABBAR_OFFSET;
             break;
 		}
         case UIInterfaceOrientationLandscapeLeft: {
             angle = - M_PI / 2.0f;
 			screenWidth = MAX(screenSize.width, screenSize.height);
 			screenHeight = MIN(screenSize.width, screenSize.height);
-			x = screenHeight - self.bounds.size.height - 15.0f;
+			x = screenHeight - self.bounds.size.height - 15.0f - TABBAR_OFFSET;
 			y = floor((screenWidth - self.bounds.size.width) / 2.0f);
             break;
 		}
@@ -190,7 +180,7 @@
             angle = M_PI / 2.0f;
 			screenWidth = MAX(screenSize.width, screenSize.height);
 			screenHeight = MIN(screenSize.width, screenSize.height);
-			x = 15.0f;
+			x = 15.0f + TABBAR_OFFSET;
 			y = floor((screenWidth - self.bounds.size.width) / 2.0f);
             break;
 		}
@@ -199,7 +189,7 @@
 			screenWidth = MIN(screenSize.width, screenSize.height);
 			screenHeight = MAX(screenSize.width, screenSize.height);
 			x = floor((screenWidth - self.bounds.size.width) / 2.0f);
-			y = screenHeight - self.bounds.size.height - 15.0f;
+			y = screenHeight - self.bounds.size.height - 15.0f - TABBAR_OFFSET;
             break;
 		}
     }
@@ -220,7 +210,6 @@
 	
 	UIWindow *mainWindow = [[UIApplication sharedApplication] keyWindow];
 	[mainWindow addSubview:toast];
-	[toast release];
 	
 	[toast __flipViewAccordingToStatusBarOrientation];
 	[toast __show];
@@ -235,7 +224,6 @@
 	
 	UIWindow *mainWindow = [[UIApplication sharedApplication] keyWindow];
 	[mainWindow addSubview:toast];
-	[toast release];
 	
 	[toast __flipViewAccordingToStatusBarOrientation];
 	[toast __show];
