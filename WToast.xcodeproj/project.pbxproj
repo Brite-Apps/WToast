@@ -11,7 +11,8 @@
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
-		AF5198C8142BBC41003E97EE /* WToastViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AF5198C7142BBC41003E97EE /* WToastViewController.m */; };
+		AF1AA29415A305A500C87E9E /* WToastTestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AF1AA29215A305A500C87E9E /* WToastTestViewController.m */; };
+		AF1AA29515A305A500C87E9E /* WToastTestViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AF1AA29315A305A500C87E9E /* WToastTestViewController.xib */; };
 		AF53D3C5134F4EAB00519C3A /* WToast.m in Sources */ = {isa = PBXBuildFile; fileRef = AF53D3C4134F4EAB00519C3A /* WToast.m */; };
 		AF53D486134F5CE200519C3A /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF53D485134F5CE200519C3A /* QuartzCore.framework */; };
 		AF53D4A1134F5CF100519C3A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF53D4A0134F5CF100519C3A /* CoreGraphics.framework */; };
@@ -27,8 +28,9 @@
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* WToast_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WToast_Prefix.pch; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* WToast-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "WToast-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
-		AF5198C6142BBC41003E97EE /* WToastViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WToastViewController.h; sourceTree = "<group>"; };
-		AF5198C7142BBC41003E97EE /* WToastViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WToastViewController.m; sourceTree = "<group>"; };
+		AF1AA29115A305A500C87E9E /* WToastTestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WToastTestViewController.h; sourceTree = "<group>"; };
+		AF1AA29215A305A500C87E9E /* WToastTestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WToastTestViewController.m; sourceTree = "<group>"; };
+		AF1AA29315A305A500C87E9E /* WToastTestViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WToastTestViewController.xib; sourceTree = "<group>"; };
 		AF53D3C3134F4EAB00519C3A /* WToast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WToast.h; sourceTree = "<group>"; };
 		AF53D3C4134F4EAB00519C3A /* WToast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WToast.m; sourceTree = "<group>"; };
 		AF53D485134F5CE200519C3A /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -56,8 +58,9 @@
 			children = (
 				1D3623240D0F684500981E51 /* WToastAppDelegate.h */,
 				1D3623250D0F684500981E51 /* WToastAppDelegate.m */,
-				AF5198C6142BBC41003E97EE /* WToastViewController.h */,
-				AF5198C7142BBC41003E97EE /* WToastViewController.m */,
+				AF1AA29115A305A500C87E9E /* WToastTestViewController.h */,
+				AF1AA29215A305A500C87E9E /* WToastTestViewController.m */,
+				AF1AA29315A305A500C87E9E /* WToastTestViewController.xib */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -174,6 +177,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AFA2273E1361D9BD005139AD /* test.png in Resources */,
+				AF1AA29515A305A500C87E9E /* WToastTestViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -187,7 +191,7 @@
 				1D60589B0D05DD56006BFB54 /* main.m in Sources */,
 				1D3623260D0F684500981E51 /* WToastAppDelegate.m in Sources */,
 				AF53D3C5134F4EAB00519C3A /* WToast.m in Sources */,
-				AF5198C8142BBC41003E97EE /* WToastViewController.m in Sources */,
+				AF1AA29415A305A500C87E9E /* WToastTestViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -198,11 +202,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_OBJC_ARC = YES;
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = WToast_Prefix.pch;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "WToast-Info.plist";
 				PRODUCT_NAME = WToast;
 			};
@@ -212,9 +218,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_OBJC_ARC = YES;
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = WToast_Prefix.pch;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "WToast-Info.plist";
 				PRODUCT_NAME = WToast;
 				VALIDATE_PRODUCT = YES;
@@ -225,6 +233,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
@@ -240,6 +249,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;

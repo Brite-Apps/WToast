@@ -9,7 +9,23 @@
 
 #define TABBAR_OFFSET 44.0f
 
+@interface WToast()
+
+@property (nonatomic) NSInteger length;
+
+@end
+
+
 @implementation WToast
+
+@synthesize length = _length;
+
+- (id)initWithFrame:(CGRect)frame {
+	if ((self = [super initWithFrame:frame]) != nil) {
+		_length = kWTShort;
+	}
+	return self;
+}
 
 - (void)__show {
 	[UIView animateWithDuration:0.2f
@@ -17,7 +33,7 @@
 						 self.alpha = 1.0f;
 					 }
 					 completion:^(BOOL finished) {
-						 [self performSelector:@selector(__hide) withObject:nil afterDelay:1];
+						 [self performSelector:@selector(__hide) withObject:nil afterDelay:_length];
 					 }];
 }
 
@@ -27,7 +43,11 @@
 						 self.alpha = 0.0f;
 					 }
 					 completion:^(BOOL finished) {
-						 [self removeFromSuperview], [self release];
+						 [self removeFromSuperview];
+#if !__has_feature(objc_arc)
+						 [self release];
+#endif
+						 
 					 }];
 }
 
@@ -89,7 +109,9 @@
 	tmpRect.size = sz;
 	textLabel.frame = tmpRect;
 	[toast addSubview:textLabel];
+#if !__has_feature(objc_arc)
 	[textLabel release];
+#endif
 	
 	toast.alpha = 0.0f;
 
@@ -145,7 +167,9 @@
 	tmpRect.size = sz;
 	imageView.frame = tmpRect;
 	[toast addSubview:imageView];
+#if !__has_feature(objc_arc)
 	[imageView release];
+#endif
 	
 	toast.alpha = 0.0f;
 	
@@ -206,7 +230,25 @@
  * @param text Text to print in toast window
  */
 + (void)showWithText:(NSString *)text {
+	[WToast showWithText:text length:kWTShort];
+}
+
+/**
+ * Show toast with image in application window
+ * @param image Image to show in toast window
+ */
++ (void)showWithImage:(UIImage *)image {
+	[WToast showWithImage:image length:kWTShort];
+}
+
+/**
+ * Show toast with text in application window
+ * @param text Text to print in toast window
+ * @param length Toast visibility duration
+ */
++ (void)showWithText:(NSString *)text length:(WToastLength)length {
 	WToast *toast = [WToast __createWithText:text];
+	toast.length = length;
 	
 	UIWindow *mainWindow = [[UIApplication sharedApplication] keyWindow];
 	[mainWindow addSubview:toast];
@@ -218,9 +260,11 @@
 /**
  * Show toast with image in application window
  * @param image Image to show in toast window
+ * @param length Toast visibility duration
  */
-+ (void)showWithImage:(UIImage *)image {
++ (void)showWithImage:(UIImage *)image length:(WToastLength)length {
 	WToast *toast = [WToast __createWithImage:image];
+	toast.length = length;
 	
 	UIWindow *mainWindow = [[UIApplication sharedApplication] keyWindow];
 	[mainWindow addSubview:toast];

@@ -4,7 +4,7 @@
  */
 
 #import "WToastAppDelegate.h"
-#import "WToastViewController.h"
+#import "WToastTestViewController.h"
 
 @implementation WToastAppDelegate
 
@@ -14,10 +14,9 @@
 	
 	tabBarController = [[UITabBarController alloc] init];
 
-	WToastViewController *v = [[WToastViewController alloc] init];
+	WToastTestViewController *v = [[WToastTestViewController alloc] initWithNibName:@"WToastTestViewController" bundle:nil];
 	v.tabBarItem.title = @"Test tab";
 	tabBarController.viewControllers = [NSArray arrayWithObject:v];
-	[v release];
 	
 	[window addSubview:tabBarController.view];
 	[window makeKeyAndVisible];
@@ -42,10 +41,5 @@
 - (void)applicationDidReceiveMemoryWarning:(UIApplication *)application {
 }
 
-- (void)dealloc {
-	[window release];
-	[tabBarController release];
-	[super dealloc];
-}
 
 @end
