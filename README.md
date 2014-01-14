@@ -1,4 +1,4 @@
-WToast is simple info box for iOS inspired by Android Toast object.
+WToast is a simple info box for iOS inspired by Android Toast object.
 
 ## Requirements
 
@@ -26,7 +26,7 @@ iOS 5.0 and higher.
 
 ## Demo
 
-<a href="http://www.youtube.com/watch?feature=player_embedded&v=clTe6-MGqVQ" target="_blank"><img src="http://img.youtube.com/vi/clTe6-MGqVQ/0.jpg" alt="IMAGE ALT TEXT HERE" width="320" height="180" border="10" /></a>
+<a href="http://www.youtube.com/watch?feature=player_embedded&v=clTe6-MGqVQ" target="_blank"><img src="http://img.youtube.com/vi/clTe6-MGqVQ/0.jpg" alt="IMAGE ALT TEXT HERE" width="240" height="180" border="10" /></a>
 
 ## License
 
