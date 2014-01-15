@@ -1,4 +1,4 @@
-WToast is a simple info box for iOS inspired by Android Toast object.
+WToast is a simple info box for iOS inspired by Android Toast.
 
 ## Requirements
 
@@ -21,7 +21,7 @@ iOS 5.0 and higher.
 ### Show toast with image
 
 ```objective-c
-[WToast showWithText:[UIImage imageNamed:@"toast-image"] duration:10];
+[WToast showWithImage:[UIImage imageNamed:@"toast-image"] duration:10];
 ```
 
 ## Demo
