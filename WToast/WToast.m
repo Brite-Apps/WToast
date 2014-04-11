@@ -96,12 +96,24 @@
 	textLabel.numberOfLines = 0;
 	textLabel.lineBreakMode = NSLineBreakByWordWrapping;
 
-	CGRect tmpRect = [text boundingRectWithSize:CGSizeMake(width - 20.0f, FLT_MAX)
+	CGRect tmpRect = CGRectZero;
+    CGSize sizeConstraint = CGSizeMake(width - 20.0f, FLT_MAX);
+
+    if (floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_6_1) {
+        #pragma clang diagnostic push
+        #pragma clang diagnostic ignored "-Wdeprecated-declarations"
+        CGSize textSize = [text sizeWithFont:textLabel.font
+                           constrainedToSize:sizeConstraint
+                               lineBreakMode:NSLineBreakByWordWrapping];
+        tmpRect.size = textSize;
+        #pragma clang diagnostic pop
+    }
+    else {
+        tmpRect = [text boundingRectWithSize:sizeConstraint
 										options:NSStringDrawingUsesLineFragmentOrigin
 									 attributes:@{NSFontAttributeName: textLabel.font}
 										context:nil];
-
-	tmpRect.origin = CGPointZero;
+    }
 	tmpRect.size.width = width;
 	tmpRect.size.height = MAX(tmpRect.size.height + 20.0f, 38.0f);
 
