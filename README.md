@@ -17,6 +17,7 @@ iOS 7.0 and higher.
 [WToast showWithText:@"This is a short test."];
 [WToast showWithText:@"This is a long test." duration:kWTLong];
 [WToast showWithText:@"This is a long test." duration:kWTLong roundedCorners:YES];
+[WToast showWithText:@"This is a long test." duration:kWTLong roundedCorners:YES gravity:kWTGravityMiddle];
 ```
 
 ### Show toast with image
@@ -25,6 +26,7 @@ iOS 7.0 and higher.
 [WToast showWithImage:[UIImage imageNamed:@"toast-image"]];
 [WToast showWithImage:[UIImage imageNamed:@"toast-image"] duration:10];
 [WToast showWithImage:[UIImage imageNamed:@"toast-image"] duration:12 roundedCorners:NO];
+[WToast showWithImage:[UIImage imageNamed:@"toast-image"] duration:12 roundedCorners:NO gravity:kWTGravityTop];
 ```
 
 ## Demo
