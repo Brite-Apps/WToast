@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="4514" systemVersion="13B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3747"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="WTestViewController">
             <connections>
+                <outlet property="gravitySegmentedControl" destination="sCx-aK-NOX" id="vkE-Yc-9gv"/>
                 <outlet property="textField" destination="1TJ-U8-rEQ" id="eEk-UC-62z"/>
                 <outlet property="view" destination="1" id="3"/>
             </connections>
@@ -17,7 +19,6 @@
             <subviews>
                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Type message here" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1TJ-U8-rEQ">
                     <rect key="frame" x="20" y="29" width="280" height="30"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="30" id="JvW-hX-WzF"/>
                         <constraint firstAttribute="width" constant="280" id="SRk-5n-mOu"/>
@@ -27,7 +28,6 @@
                 </textField>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="buh-A4-p1W">
                     <rect key="frame" x="88" y="80" width="144" height="30"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <state key="normal" title="Show short message">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -36,8 +36,7 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4EX-Hf-O1r">
-                    <rect key="frame" x="91" y="118" width="139" height="30"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <rect key="frame" x="92" y="118" width="137" height="30"/>
                     <state key="normal" title="Show long message">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -47,7 +46,6 @@
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Y6H-Gq-iaE">
                     <rect key="frame" x="98" y="156" width="124" height="30"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <state key="normal" title="Show short image">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -56,8 +54,7 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="slx-mn-Jzr">
-                    <rect key="frame" x="101" y="194" width="119" height="30"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <rect key="frame" x="102" y="194" width="117" height="30"/>
                     <state key="normal" title="Show long image">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -65,6 +62,14 @@
                         <action selector="showLongImage" destination="-1" eventType="touchUpInside" id="RNH-ii-ogA"/>
                     </connections>
                 </button>
+                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="sCx-aK-NOX">
+                    <rect key="frame" x="20" y="238" width="280" height="29"/>
+                    <segments>
+                        <segment title="Bottom"/>
+                        <segment title="Middle"/>
+                        <segment title="Top"/>
+                    </segments>
+                </segmentedControl>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
@@ -76,15 +81,16 @@
                 <constraint firstAttribute="centerX" secondItem="4EX-Hf-O1r" secondAttribute="centerX" id="DW6-HH-3Ht"/>
                 <constraint firstItem="1TJ-U8-rEQ" firstAttribute="centerX" secondItem="Y6H-Gq-iaE" secondAttribute="centerX" id="EG5-dZ-YI0"/>
                 <constraint firstAttribute="centerX" secondItem="slx-mn-Jzr" secondAttribute="centerX" id="Hq5-kK-88S"/>
+                <constraint firstItem="sCx-aK-NOX" firstAttribute="leading" secondItem="1TJ-U8-rEQ" secondAttribute="leading" id="IEQ-uS-nUa"/>
                 <constraint firstAttribute="centerX" secondItem="buh-A4-p1W" secondAttribute="centerX" id="LHt-Dl-Pk9"/>
                 <constraint firstItem="buh-A4-p1W" firstAttribute="top" secondItem="1TJ-U8-rEQ" secondAttribute="bottom" constant="21" id="LpW-a0-B0q"/>
                 <constraint firstItem="4EX-Hf-O1r" firstAttribute="top" secondItem="buh-A4-p1W" secondAttribute="bottom" constant="8" symbolic="YES" id="OtT-qS-E4M"/>
                 <constraint firstItem="slx-mn-Jzr" firstAttribute="top" secondItem="Y6H-Gq-iaE" secondAttribute="bottom" constant="8" symbolic="YES" id="P4u-5E-kQq"/>
                 <constraint firstItem="Y6H-Gq-iaE" firstAttribute="top" secondItem="4EX-Hf-O1r" secondAttribute="bottom" constant="8" symbolic="YES" id="igt-N2-N6o"/>
+                <constraint firstItem="sCx-aK-NOX" firstAttribute="centerX" secondItem="1" secondAttribute="centerX" id="jVN-3q-PA0"/>
                 <constraint firstAttribute="centerX" secondItem="Y6H-Gq-iaE" secondAttribute="centerX" id="nzV-UJ-DJj"/>
+                <constraint firstItem="sCx-aK-NOX" firstAttribute="top" secondItem="slx-mn-Jzr" secondAttribute="bottom" constant="14" id="oLY-6O-BOo"/>
             </constraints>
-            <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
-            <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
         </view>
     </objects>
 </document>

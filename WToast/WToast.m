@@ -15,13 +15,19 @@
 #error WToast requires ARC
 #endif
 
-#define TABBAR_OFFSET 44.0f
+#if __IPHONE_OS_VERSION_MIN_REQUIRED < 80000
+#error WToast requires deployment target iOS 8.0 or higher
+#endif
+
+
+#define TABBAR_OFFSET (44.0)
 #define SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
 
 @interface WToast()
 
 @property (nonatomic) NSInteger duration;
 @property (nonatomic) BOOL roundedCorners;
+@property (nonatomic) WToastGravity gravity;
 
 @end
 
@@ -51,9 +57,9 @@
 	__block NSInteger bDuration = _duration;
 
 	[UIView
-	 animateWithDuration:0.2f
+	 animateWithDuration:0.2
 	 animations:^{
-		 weakSelf.alpha = 1.0f;
+		 weakSelf.alpha = 1.0;
 	 }
 	 completion:^(BOOL finished) {
 		 [weakSelf performSelector:@selector(__hide) withObject:nil afterDelay:bDuration];
@@ -64,9 +70,9 @@
 	__weak typeof(self) weakSelf = self;
 
 	[UIView
-	 animateWithDuration:0.8f
+	 animateWithDuration:0.8
 	 animations:^{
-		 weakSelf.alpha = 0.0f;
+		 weakSelf.alpha = 0.0;
 	 }
 	 completion:^(BOOL finished) {
 		 [weakSelf removeFromSuperview];
@@ -79,43 +85,16 @@
 	if (_roundedCorners) {
 		CALayer *layer = self.layer;
 		layer.masksToBounds = YES;
-		layer.cornerRadius = 5.0f;
+		layer.cornerRadius = 5.0;
 	}
 }
 
 + (WToast *)__createWithText:(NSString *)text {
-	CGFloat screenWidth;
 	CGSize screenSize = [UIScreen mainScreen].bounds.size;
+	CGFloat screenWidth = screenSize.width;
 
-	
-	if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.0")) {
-		screenWidth = screenSize.width;
-	}
-	else {
-		UIInterfaceOrientation orientation = [UIApplication sharedApplication].statusBarOrientation;
-		
-		switch (orientation) {
-			case UIInterfaceOrientationPortraitUpsideDown: {
-				screenWidth = MIN(screenSize.width, screenSize.height);
-				break;
-			}
-			case UIInterfaceOrientationLandscapeLeft: {
-				screenWidth = MAX(screenSize.width, screenSize.height);
-				break;
-			}
-			case UIInterfaceOrientationLandscapeRight: {
-				screenWidth = MAX(screenSize.width, screenSize.height);
-				break;
-			}
-			default: {
-				screenWidth = MIN(screenSize.width, screenSize.height);
-				break;
-			}
-		}
-	}
-
-	CGFloat x = 10.0f;
-	CGFloat width = screenWidth - x * 2.0f;
+	CGFloat x = 10.0;
+	CGFloat width = screenWidth - x * 2.0;
 
 	UILabel *textLabel = [[UILabel alloc] init];
 	textLabel.backgroundColor = [UIColor clearColor];
@@ -126,7 +105,7 @@
 	textLabel.lineBreakMode = NSLineBreakByWordWrapping;
 
 	CGRect frame = CGRectZero;
-	CGSize sizeConstraint = CGSizeMake(width - 20.0f, FLT_MAX);
+	CGSize sizeConstraint = CGSizeMake(width - 20.0, FLT_MAX);
 
 	frame = [text boundingRectWithSize:sizeConstraint
 									options:NSStringDrawingUsesLineFragmentOrigin
@@ -134,125 +113,70 @@
 									context:nil];
 
 	frame.size.width = width;
-	frame.size.height = MAX(frame.size.height + 20.0f, 38.0f);
+	frame.size.height = MAX(frame.size.height + 20.0, 38.0);
 
 	WToast *toast = [[WToast alloc] initWithFrame:frame];
-	toast.backgroundColor = RGBA(0, 0, 0, 0.8f);
+	toast.backgroundColor = RGBA(0, 0, 0, 0.8);
 
 	textLabel.text = text;
-	frame.origin.x = floor((toast.frame.size.width - frame.size.width) / 2.0f);
-	frame.origin.y = floor((toast.frame.size.height - frame.size.height) / 2.0f);
+	frame.origin.x = floor((toast.frame.size.width - frame.size.width) / 2.0);
+	frame.origin.y = floor((toast.frame.size.height - frame.size.height) / 2.0);
 	textLabel.frame = frame;
 
 	[toast addSubview:textLabel];
 
-	toast.alpha = 0.0f;
+	toast.alpha = 0.0;
 
 	return toast;
 }
 
 + (WToast *)__createWithImage:(UIImage *)image {
-	CGFloat screenWidth;
 	CGSize screenSize = [UIScreen mainScreen].bounds.size;
+	CGFloat screenWidth = screenSize.width;
 	
-	if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.0")) {
-		screenWidth = screenSize.width;
-	}
-	else {
-		UIInterfaceOrientation orientation = [UIApplication sharedApplication].statusBarOrientation;
-		
-		switch (orientation) {
-			case UIInterfaceOrientationPortraitUpsideDown: {
-				screenWidth = MIN(screenSize.width, screenSize.height);
-				break;
-			}
-			case UIInterfaceOrientationLandscapeLeft: {
-				screenWidth = MAX(screenSize.width, screenSize.height);
-				break;
-			}
-			case UIInterfaceOrientationLandscapeRight: {
-				screenWidth = MAX(screenSize.width, screenSize.height);
-				break;
-			}
-			default: {
-				screenWidth = MIN(screenSize.width, screenSize.height);
-				break;
-			}
-		}
-	}
-
-	
-	CGFloat x = 10.0f;
-	CGFloat width = screenWidth - x * 2.0f;
+	CGFloat x = 10.0;
+	CGFloat width = screenWidth - x * 2.0;
 
 	UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
 	CGSize sz = imageView.frame.size;
 
 	CGRect frame = CGRectZero;
 	frame.size.width = width;
-	frame.size.height = MAX(sz.height + 20.0f, 38.0f);
+	frame.size.height = MAX(sz.height + 20.0, 38.0);
 
 	WToast *toast = [[WToast alloc] initWithFrame:frame];
-	toast.backgroundColor = RGBA(0, 0, 0, 0.8f);
+	toast.backgroundColor = RGBA(0, 0, 0, 0.8);
 
-	frame.origin.x = floor((toast.frame.size.width - sz.width) / 2.0f);
-	frame.origin.y = floor((toast.frame.size.height - sz.height) / 2.0f);
+	frame.origin.x = floor((toast.frame.size.width - sz.width) / 2.0);
+	frame.origin.y = floor((toast.frame.size.height - sz.height) / 2.0);
 	frame.size = sz;
 	imageView.frame = frame;
 	[toast addSubview:imageView];
 
-	toast.alpha = 0.0f;
+	toast.alpha = 0.0;
 	
 	return toast;
 }
 
 - (void)__flipViewAccordingToStatusBarOrientation {
 	CGSize screenSize = [UIScreen mainScreen].bounds.size;
-	CGFloat x;
+	CGFloat x = floor((screenSize.width - self.bounds.size.width) / 2.0);
 	CGFloat y;
-
-	if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.0")) {
-		x = floor((screenSize.width - self.bounds.size.width) / 2.0f);
-		y = screenSize.height - self.bounds.size.height - 15.0f - TABBAR_OFFSET;
-	}
-	else {
-		UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
-		CGFloat angle = 0.0;
-
-		switch (orientation) {
-			case UIInterfaceOrientationPortraitUpsideDown: {
-				angle = M_PI;
-				CGFloat screenWidth = MIN(screenSize.width, screenSize.height);
-				x = floor((screenWidth - self.bounds.size.width) / 2.0f);
-				y = 15.0f + TABBAR_OFFSET;
-				break;
-			}
-			case UIInterfaceOrientationLandscapeLeft: {
-				angle = - M_PI / 2.0f;
-				CGFloat screenWidth = MAX(screenSize.width, screenSize.height);
-				CGFloat screenHeight = MIN(screenSize.width, screenSize.height);
-				x = screenHeight - self.bounds.size.height - 15.0f - TABBAR_OFFSET;
-				y = floor((screenWidth - self.bounds.size.width) / 2.0f);
-				break;
-			}
-			case UIInterfaceOrientationLandscapeRight: {
-				angle = M_PI / 2.0f;
-				CGFloat screenWidth = MAX(screenSize.width, screenSize.height);
-				x = 15.0f + TABBAR_OFFSET;
-				y = floor((screenWidth - self.bounds.size.width) / 2.0f);
-				break;
-			}
-			default: {
-				angle = 0.0;
-				CGFloat screenWidth = MIN(screenSize.width, screenSize.height);
-				CGFloat screenHeight = MAX(screenSize.width, screenSize.height);
-				x = floor((screenWidth - self.bounds.size.width) / 2.0f);
-				y = screenHeight - self.bounds.size.height - 15.0f - TABBAR_OFFSET;
-				break;
-			}
+	
+	switch (self.gravity) {
+		case kWTGravityTop: {
+			y = MIN([UIApplication sharedApplication].statusBarFrame.size.width, [UIApplication sharedApplication].statusBarFrame.size.height) + 15.0;
+			break;
 		}
-		
-		self.transform = CGAffineTransformMakeRotation(angle);
+		case kWTGravityMiddle: {
+			y = floor((screenSize.height - self.bounds.size.height) * 0.5);
+			break;
+		}
+		case kWTGravityBottom:
+		default: {
+			y = screenSize.height - self.bounds.size.height - 15.0 - TABBAR_OFFSET;
+			break;
+		}
 	}
 
 	CGRect f = self.bounds;
@@ -265,7 +189,16 @@
  * @param text Text to print in toast window
  */
 + (void)showWithText:(NSString *)text {
-	[WToast showWithText:text duration:kWTShort roundedCorners:NO];
+	[WToast showWithText:text gravity:kWTGravityBottom];
+}
+
+/**
+ * Show toast with text in application window
+ * @param text Text to print in toast window
+ * @param gravity Toast position in window
+ */
++ (void)showWithText:(NSString *)text gravity:(WToastGravity)gravity {
+	[WToast showWithText:text duration:kWTShort roundedCorners:NO gravity:gravity];
 }
 
 /**
@@ -273,7 +206,16 @@
  * @param image Image to show in toast window
  */
 + (void)showWithImage:(UIImage *)image {
-	[WToast showWithImage:image duration:kWTShort roundedCorners:NO];
+	[WToast showWithImage:image gravity:kWTGravityBottom];
+}
+
+/**
+ * Show toast with image in application window
+ * @param image Image to show in toast window
+ * @param gravity Toast position in window
+ */
++ (void)showWithImage:(UIImage *)image gravity:(WToastGravity)gravity {
+	[WToast showWithImage:image duration:kWTShort roundedCorners:NO gravity:gravity];
 }
 
 /**
@@ -282,7 +224,17 @@
  * @param length Toast visibility duration
  */
 + (void)showWithText:(NSString *)text duration:(NSInteger)duration {
-	[WToast showWithText:text duration:kWTShort roundedCorners:NO];
+	[WToast showWithText:text duration:kWTShort gravity:kWTGravityBottom];
+}
+
+/**
+ * Show toast with text in application window
+ * @param text Text to print in toast window
+ * @param length Toast visibility duration
+ * @param gravity Toast position in window
+ */
++ (void)showWithText:(NSString *)text duration:(NSInteger)duration gravity:(WToastGravity)gravity {
+	[WToast showWithText:text duration:kWTShort roundedCorners:NO gravity:gravity];
 }
 
 /**
@@ -291,7 +243,17 @@
  * @param length Toast visibility duration
  */
 + (void)showWithImage:(UIImage *)image duration:(NSInteger)duration {
-	[WToast showWithImage:image duration:kWTShort roundedCorners:NO];
+	[WToast showWithImage:image duration:kWTShort roundedCorners:NO gravity:kWTGravityBottom];
+}
+
+/**
+ * Show toast with image in application window
+ * @param image Image to show in toast window
+ * @param length Toast visibility duration
+ * @param gravity Toast position in window
+ */
++ (void)showWithImage:(UIImage *)image duration:(NSInteger)duration gravity:(WToastGravity)gravity {
+	[WToast showWithImage:image duration:kWTShort roundedCorners:NO gravity:gravity];
 }
 
 /**
@@ -301,10 +263,22 @@
  * @param roundedCorners Make corners of toast rounded
  */
 + (void)showWithText:(NSString *)text duration:(NSInteger)duration roundedCorners:(BOOL)roundedCorners {
+	[WToast showWithText:text duration:duration roundedCorners:roundedCorners gravity:kWTGravityBottom];
+}
+
+/**
+ * Show toast with text in application window
+ * @param image Image to show in toast window
+ * @param length Toast visibility duration
+ * @param roundedCorners Make corners of toast rounded
+ * @param gravity Toast position in window
+ */
++ (void)showWithText:(NSString *)text duration:(NSInteger)duration roundedCorners:(BOOL)roundedCorners gravity:(WToastGravity)gravity {
 	WToast *toast = [WToast __createWithText:text];
 	toast.duration = duration;
 	toast.roundedCorners = roundedCorners;
-	
+	toast.gravity = gravity;
+
 	UIWindow *mainWindow = [[UIApplication sharedApplication] keyWindow];
 	[mainWindow addSubview:toast];
 	
@@ -319,9 +293,20 @@
  * @param roundedCorners Make corners of toast rounded
  */
 + (void)showWithImage:(UIImage *)image duration:(NSInteger)duration roundedCorners:(BOOL)roundedCorners {
+	[WToast showWithImage:image duration:duration roundedCorners:roundedCorners gravity:kWTGravityBottom];
+}
+
+/**
+ * Show toast with image in application window
+ * @param image Image to show in toast window
+ * @param length Toast visibility duration
+ * @param roundedCorners Make corners of toast rounded
+ */
++ (void)showWithImage:(UIImage *)image duration:(NSInteger)duration roundedCorners:(BOOL)roundedCorners gravity:(WToastGravity)gravity {
 	WToast *toast = [WToast __createWithImage:image];
 	toast.duration = duration;
 	toast.roundedCorners = roundedCorners;
+	toast.gravity = gravity;
 	
 	UIWindow *mainWindow = [[UIApplication sharedApplication] keyWindow];
 	[mainWindow addSubview:toast];

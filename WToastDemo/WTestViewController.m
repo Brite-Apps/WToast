@@ -26,11 +26,13 @@
 
 	NSString *text = _textField.text;
 
-	if (!text || ![text length]) {
+	if (text.length == 0) {
 		text = @"No text!";
 	}
 
-	[WToast showWithText:text];
+	WToastGravity gravity = (WToastGravity)self.gravitySegmentedControl.selectedSegmentIndex;
+	
+	[WToast showWithText:text gravity:gravity];
 }
 
 - (IBAction)showLongMessage {
@@ -38,23 +40,29 @@
 
 	NSString *text = _textField.text;
 
-	if (!text || ![text length]) {
+	if (text.length == 0) {
 		text = @"No text!";
 	}
+	
+	WToastGravity gravity = (WToastGravity)self.gravitySegmentedControl.selectedSegmentIndex;
 
-	[WToast showWithText:text duration:kWTLong];
+	[WToast showWithText:text duration:kWTLong gravity:gravity];
 }
 
 - (IBAction)showShortImage {
-	[WToast showWithImage:[UIImage imageNamed:@"test.png"]];
+	WToastGravity gravity = (WToastGravity)self.gravitySegmentedControl.selectedSegmentIndex;
+	
+	[WToast showWithImage:[UIImage imageNamed:@"test.png"] gravity:gravity];
 }
 
 - (IBAction)showLongImage {
-	[WToast showWithImage:[UIImage imageNamed:@"test.png"] duration:kWTLong];
+	WToastGravity gravity = (WToastGravity)self.gravitySegmentedControl.selectedSegmentIndex;
 	
-	[WToast showWithImage:[UIImage imageNamed:@"toast-image"]];
-	[WToast showWithImage:[UIImage imageNamed:@"toast-image"] duration:10];
-	[WToast showWithImage:[UIImage imageNamed:@"toast-image"] duration:12 roundedCorners:NO];
+	[WToast showWithImage:[UIImage imageNamed:@"test.png"] duration:kWTLong gravity:gravity];
+	
+	//[WToast showWithImage:[UIImage imageNamed:@"toast-image"] gravity:gravity];
+	//[WToast showWithImage:[UIImage imageNamed:@"toast-image"] duration:10 gravity:gravity];
+	//[WToast showWithImage:[UIImage imageNamed:@"toast-image"] duration:12 roundedCorners:NO gravity:gravity];
 }
 
 @end

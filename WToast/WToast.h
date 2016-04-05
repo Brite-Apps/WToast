@@ -21,6 +21,12 @@ typedef NS_ENUM(NSInteger, WToastDuration) {
 	kWTLong = 5
 };
 
+typedef NS_ENUM(NSInteger, WToastGravity) {
+	kWTGravityBottom = 0,
+	kWTGravityMiddle = 1,
+	kWTGravityTop = 2
+};
+
 @interface WToast : UIView
 
 + (void)showWithText:(NSString *)text;
@@ -31,5 +37,14 @@ typedef NS_ENUM(NSInteger, WToastDuration) {
 
 + (void)showWithText:(NSString *)text duration:(NSInteger)duration roundedCorners:(BOOL)roundedCorners;
 + (void)showWithImage:(UIImage *)image duration:(NSInteger)duration roundedCorners:(BOOL)roundedCorners;
+
++ (void)showWithText:(NSString *)text gravity:(WToastGravity)gravity;
++ (void)showWithImage:(UIImage *)image gravity:(WToastGravity)gravity;
+
++ (void)showWithText:(NSString *)text duration:(NSInteger)duration gravity:(WToastGravity)gravity;
++ (void)showWithImage:(UIImage *)image duration:(NSInteger)duration gravity:(WToastGravity)gravity;
+
++ (void)showWithText:(NSString *)text duration:(NSInteger)duration roundedCorners:(BOOL)roundedCorners gravity:(WToastGravity)gravity;
++ (void)showWithImage:(UIImage *)image duration:(NSInteger)duration roundedCorners:(BOOL)roundedCorners gravity:(WToastGravity)gravity;
 
 @end
