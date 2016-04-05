@@ -2,7 +2,7 @@ WToast is a simple info box for iOS inspired by Android Toast.
 
 ## Requirements
 
-iOS 7.0 and higher.
+iOS 8.0 and higher.
 
 ## Features
 
