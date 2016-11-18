@@ -47,4 +47,7 @@ typedef NS_ENUM(NSInteger, WToastGravity) {
 + (void)showWithText:(NSString *)text duration:(NSInteger)duration roundedCorners:(BOOL)roundedCorners gravity:(WToastGravity)gravity;
 + (void)showWithImage:(UIImage *)image duration:(NSInteger)duration roundedCorners:(BOOL)roundedCorners gravity:(WToastGravity)gravity;
 
++ (void)hideToast;
++ (void)hideToastAnimated:(BOOL)animated;
+
 @end

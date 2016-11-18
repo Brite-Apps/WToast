@@ -65,4 +65,10 @@
 	//[WToast showWithImage:[UIImage imageNamed:@"toast-image"] duration:12 roundedCorners:NO gravity:gravity];
 }
 
+- (IBAction)hideToast {
+	[WToast hideToastAnimated:YES];
+	
+	//[WToast hide];
+}
+
 @end

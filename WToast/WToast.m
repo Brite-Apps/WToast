@@ -279,8 +279,7 @@
 	toast.roundedCorners = roundedCorners;
 	toast.gravity = gravity;
 
-	UIWindow *mainWindow = [[UIApplication sharedApplication] keyWindow];
-	[mainWindow addSubview:toast];
+	[[self mainWindow] addSubview:toast];
 	
 	[toast __flipViewAccordingToStatusBarOrientation];
 	[toast __show];
@@ -308,11 +307,50 @@
 	toast.roundedCorners = roundedCorners;
 	toast.gravity = gravity;
 	
-	UIWindow *mainWindow = [[UIApplication sharedApplication] keyWindow];
-	[mainWindow addSubview:toast];
+	[[self mainWindow] addSubview:toast];
 	
 	[toast __flipViewAccordingToStatusBarOrientation];
 	[toast __show];
+}
+
++ (void)hideToast {
+	[self hideToastAnimated:NO];
+}
+
++ (void)hideToastAnimated:(BOOL)animated {
+	WToast *toast = [self currentToast];
+	
+	if (toast) {
+		if (animated) {
+			[UIView
+			 animateWithDuration:0.8
+			 animations:^{
+				 toast.alpha = 0.0;
+			 }
+			 completion:^(BOOL finished) {
+				 [toast removeFromSuperview];
+			 }];
+		}
+		else {
+			[toast removeFromSuperview];
+		}
+	}
+}
+
++ (WToast *)currentToast {
+	NSEnumerator *subviewsEnum = [[self mainWindow].subviews reverseObjectEnumerator];
+	
+	for (UIView *subview in subviewsEnum) {
+		if ([subview isKindOfClass:self]) {
+			return (WToast *)subview;
+		}
+	}
+	
+	return nil;
+}
+
++ (UIWindow *)mainWindow {
+	return [[UIApplication sharedApplication] keyWindow];
 }
 
 @end

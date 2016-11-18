@@ -29,6 +29,13 @@ iOS 8.0 and higher.
 [WToast showWithImage:[UIImage imageNamed:@"toast-image"] duration:12 roundedCorners:NO gravity:kWTGravityTop];
 ```
 
+### Hide current toast
+
+```objective-c
+[WToast hideToast];
+[WToast hideToastAnimated:YES];
+```
+
 ## Demo
 
 <a href="http://www.youtube.com/watch?feature=player_embedded&v=clTe6-MGqVQ" target="_blank"><img src="http://img.youtube.com/vi/clTe6-MGqVQ/0.jpg" alt="WToast demo" width="240" height="180" border="10" /></a>
