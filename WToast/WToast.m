@@ -221,7 +221,7 @@
 /**
  * Show toast with text in application window
  * @param text Text to print in toast window
- * @param length Toast visibility duration
+ * @param duration Toast visibility duration
  */
 + (void)showWithText:(NSString *)text duration:(NSInteger)duration {
 	[WToast showWithText:text duration:kWTShort gravity:kWTGravityBottom];
@@ -230,7 +230,7 @@
 /**
  * Show toast with text in application window
  * @param text Text to print in toast window
- * @param length Toast visibility duration
+ * @param duration Toast visibility duration
  * @param gravity Toast position in window
  */
 + (void)showWithText:(NSString *)text duration:(NSInteger)duration gravity:(WToastGravity)gravity {
@@ -240,7 +240,7 @@
 /**
  * Show toast with image in application window
  * @param image Image to show in toast window
- * @param length Toast visibility duration
+ * @param duration Toast visibility duration
  */
 + (void)showWithImage:(UIImage *)image duration:(NSInteger)duration {
 	[WToast showWithImage:image duration:kWTShort roundedCorners:NO gravity:kWTGravityBottom];
@@ -249,7 +249,7 @@
 /**
  * Show toast with image in application window
  * @param image Image to show in toast window
- * @param length Toast visibility duration
+ * @param duration Toast visibility duration
  * @param gravity Toast position in window
  */
 + (void)showWithImage:(UIImage *)image duration:(NSInteger)duration gravity:(WToastGravity)gravity {
@@ -259,7 +259,7 @@
 /**
  * Show toast with text in application window
  * @param image Image to show in toast window
- * @param length Toast visibility duration
+ * @param duration Toast visibility duration
  * @param roundedCorners Make corners of toast rounded
  */
 + (void)showWithText:(NSString *)text duration:(NSInteger)duration roundedCorners:(BOOL)roundedCorners {
@@ -269,7 +269,7 @@
 /**
  * Show toast with text in application window
  * @param image Image to show in toast window
- * @param length Toast visibility duration
+ * @param duration Toast visibility duration
  * @param roundedCorners Make corners of toast rounded
  * @param gravity Toast position in window
  */
@@ -288,7 +288,7 @@
 /**
  * Show toast with image in application window
  * @param image Image to show in toast window
- * @param length Toast visibility duration
+ * @param duration Toast visibility duration
  * @param roundedCorners Make corners of toast rounded
  */
 + (void)showWithImage:(UIImage *)image duration:(NSInteger)duration roundedCorners:(BOOL)roundedCorners {
@@ -298,7 +298,7 @@
 /**
  * Show toast with image in application window
  * @param image Image to show in toast window
- * @param length Toast visibility duration
+ * @param duration Toast visibility duration
  * @param roundedCorners Make corners of toast rounded
  */
 + (void)showWithImage:(UIImage *)image duration:(NSInteger)duration roundedCorners:(BOOL)roundedCorners gravity:(WToastGravity)gravity {
