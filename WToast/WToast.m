@@ -6,7 +6,7 @@
 //
 //  Created by Nik Dyonin on 08.04.11.
 //  Copyright (c) 2011 Nik Dyonin. All rights reserved.
-//  Copyright (c) 2014 Brite Apps. All rights reserved.
+//  Copyright (c) 2014-2020 Brite Apps. All rights reserved.
 //
 
 #import "WToast.h"
@@ -20,8 +20,7 @@
 #endif
 
 
-#define TABBAR_OFFSET (44.0)
-#define SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
+#define TABBAR_OFFSET (44)
 
 @interface WToast()
 
@@ -34,7 +33,33 @@
 
 @implementation WToast
 
-- (id)initWithFrame:(CGRect)frame {
+static UIColor *_backgroundColor;
+static UIColor *_textColor;
+
++ (void)load {
+	[super load];
+	
+	WToast.backgroundColor = [UIColor.blackColor colorWithAlphaComponent:0.8];
+	WToast.textColor = UIColor.whiteColor;
+}
+
++ (UIColor *)backgroundColor {
+	return _backgroundColor;
+}
+
++ (void)setBackgroundColor:(UIColor *)backgroundColor {
+	_backgroundColor = backgroundColor;
+}
+
++ (UIColor *)textColor {
+	return _textColor;
+}
+
++ (void)setTextColor:(UIColor *)textColor {
+	_textColor = textColor;
+}
+
+- (instancetype)initWithFrame:(CGRect)frame {
 	if ((self = [super initWithFrame:frame]) != nil) {
 		_duration = kWTShort;
 		_roundedCorners = NO;
@@ -59,7 +84,7 @@
 	[UIView
 	 animateWithDuration:0.2
 	 animations:^{
-		 weakSelf.alpha = 1.0;
+		 weakSelf.alpha = 1;
 	 }
 	 completion:^(BOOL finished) {
 		 [weakSelf performSelector:@selector(__hide) withObject:nil afterDelay:bDuration];
@@ -72,7 +97,7 @@
 	[UIView
 	 animateWithDuration:0.8
 	 animations:^{
-		 weakSelf.alpha = 0.0;
+		 weakSelf.alpha = 0;
 	 }
 	 completion:^(BOOL finished) {
 		 [weakSelf removeFromSuperview];
@@ -85,27 +110,27 @@
 	if (_roundedCorners) {
 		CALayer *layer = self.layer;
 		layer.masksToBounds = YES;
-		layer.cornerRadius = 5.0;
+		layer.cornerRadius = 5;
 	}
 }
 
 + (WToast *)__createWithText:(NSString *)text {
-	CGSize screenSize = [UIScreen mainScreen].bounds.size;
+	CGSize screenSize = UIScreen.mainScreen.bounds.size;
 	CGFloat screenWidth = screenSize.width;
 
-	CGFloat x = 10.0;
-	CGFloat width = screenWidth - x * 2.0;
+	CGFloat x = 10;
+	CGFloat width = screenWidth - x * 2;
 
 	UILabel *textLabel = [[UILabel alloc] init];
 	textLabel.backgroundColor = [UIColor clearColor];
 	textLabel.textAlignment = NSTextAlignmentCenter;
 	textLabel.font = [UIFont systemFontOfSize:14];
-	textLabel.textColor = RGB(255, 255, 255);
+	textLabel.textColor = WToast.textColor;
 	textLabel.numberOfLines = 0;
 	textLabel.lineBreakMode = NSLineBreakByWordWrapping;
 
 	CGRect frame = CGRectZero;
-	CGSize sizeConstraint = CGSizeMake(width - 20.0, FLT_MAX);
+	CGSize sizeConstraint = CGSizeMake(width - 20, FLT_MAX);
 
 	frame = [text boundingRectWithSize:sizeConstraint
 									options:NSStringDrawingUsesLineFragmentOrigin
@@ -113,59 +138,59 @@
 									context:nil];
 
 	frame.size.width = width;
-	frame.size.height = MAX(frame.size.height + 20.0, 38.0);
+	frame.size.height = MAX(frame.size.height + 20, 38);
 
 	WToast *toast = [[WToast alloc] initWithFrame:frame];
-	toast.backgroundColor = RGBA(0, 0, 0, 0.8);
+	toast.backgroundColor = WToast.backgroundColor;
 
 	textLabel.text = text;
-	frame.origin.x = floor((toast.frame.size.width - frame.size.width) / 2.0);
-	frame.origin.y = floor((toast.frame.size.height - frame.size.height) / 2.0);
+	frame.origin.x = floor((toast.frame.size.width - frame.size.width) / 2);
+	frame.origin.y = floor((toast.frame.size.height - frame.size.height) / 2);
 	textLabel.frame = frame;
 
 	[toast addSubview:textLabel];
 
-	toast.alpha = 0.0;
+	toast.alpha = 0;
 
 	return toast;
 }
 
 + (WToast *)__createWithImage:(UIImage *)image {
-	CGSize screenSize = [UIScreen mainScreen].bounds.size;
+	CGSize screenSize = UIScreen.mainScreen.bounds.size;
 	CGFloat screenWidth = screenSize.width;
 	
-	CGFloat x = 10.0;
-	CGFloat width = screenWidth - x * 2.0;
+	CGFloat x = 10;
+	CGFloat width = screenWidth - x * 2;
 
 	UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
 	CGSize sz = imageView.frame.size;
 
 	CGRect frame = CGRectZero;
 	frame.size.width = width;
-	frame.size.height = MAX(sz.height + 20.0, 38.0);
+	frame.size.height = MAX(sz.height + 20, 38);
 
 	WToast *toast = [[WToast alloc] initWithFrame:frame];
-	toast.backgroundColor = RGBA(0, 0, 0, 0.8);
+	toast.backgroundColor = WToast.backgroundColor;
 
-	frame.origin.x = floor((toast.frame.size.width - sz.width) / 2.0);
-	frame.origin.y = floor((toast.frame.size.height - sz.height) / 2.0);
+	frame.origin.x = floor((toast.frame.size.width - sz.width) / 2);
+	frame.origin.y = floor((toast.frame.size.height - sz.height) / 2);
 	frame.size = sz;
 	imageView.frame = frame;
 	[toast addSubview:imageView];
 
-	toast.alpha = 0.0;
+	toast.alpha = 0;
 	
 	return toast;
 }
 
 - (void)__flipViewAccordingToStatusBarOrientation {
-	CGSize screenSize = [UIScreen mainScreen].bounds.size;
-	CGFloat x = floor((screenSize.width - self.bounds.size.width) / 2.0);
+	CGSize screenSize = UIScreen.mainScreen.bounds.size;
+	CGFloat x = floor((screenSize.width - self.bounds.size.width) / 2);
 	CGFloat y;
 	
 	switch (self.gravity) {
 		case kWTGravityTop: {
-			y = MIN([UIApplication sharedApplication].statusBarFrame.size.width, [UIApplication sharedApplication].statusBarFrame.size.height) + 15.0;
+			y = MIN(UIApplication.sharedApplication.statusBarFrame.size.width, UIApplication.sharedApplication.statusBarFrame.size.height) + 15;
 			break;
 		}
 		case kWTGravityMiddle: {
@@ -174,7 +199,7 @@
 		}
 		case kWTGravityBottom:
 		default: {
-			y = screenSize.height - self.bounds.size.height - 15.0 - TABBAR_OFFSET;
+			y = screenSize.height - self.bounds.size.height - 15 - TABBAR_OFFSET;
 			break;
 		}
 	}
@@ -326,7 +351,7 @@
 			[UIView
 			 animateWithDuration:0.8
 			 animations:^{
-				 toast.alpha = 0.0;
+				 toast.alpha = 0;
 			 }
 			 completion:^(BOOL finished) {
 				 [toast removeFromSuperview];
@@ -351,7 +376,7 @@
 }
 
 + (UIWindow *)mainWindow {
-	return [[UIApplication sharedApplication] keyWindow];
+	return UIApplication.sharedApplication.keyWindow;
 }
 
 @end

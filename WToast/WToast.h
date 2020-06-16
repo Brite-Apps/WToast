@@ -6,15 +6,12 @@
 //
 //  Created by Nik Dyonin on 08.04.11.
 //  Copyright (c) 2011 Nik Dyonin. All rights reserved.
-//  Copyright (c) 2014 Brite Apps. All rights reserved.
+//  Copyright (c) 2014-2020 Brite Apps. All rights reserved.
 //
 
 @import Foundation;
 @import UIKit;
 @import QuartzCore;
-
-#define RGB(a, b, c) [UIColor colorWithRed:(a / 255.0f) green:(b / 255.0f) blue:(c / 255.0f) alpha:1.0f]
-#define RGBA(a, b, c, d) [UIColor colorWithRed:(a / 255.0f) green:(b / 255.0f) blue:(c / 255.0f) alpha:d]
 
 typedef NS_ENUM(NSInteger, WToastDuration) {
 	kWTShort = 1,
@@ -28,6 +25,9 @@ typedef NS_ENUM(NSInteger, WToastGravity) {
 };
 
 @interface WToast : UIView
+
+@property (class, nonatomic, strong) UIColor *backgroundColor;
+@property (class, nonatomic, strong) UIColor *textColor;
 
 + (void)showWithText:(NSString *)text;
 + (void)showWithImage:(UIImage *)image;

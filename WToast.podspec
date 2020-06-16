@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "WToast"
-  s.version      = "2.1.1"
+  s.version      = "2.1.2"
   s.summary      = "Simple info box for iOS inspired by Android Toast."
 
   s.description  = <<-DESC
@@ -18,7 +18,7 @@ Pod::Spec.new do |s|
   s.platform     = :ios
   s.ios.deployment_target = "8.0"
 
-  s.source       = { :git => "https://github.com/Brite-Apps/WToast.git", :tag => "2.1.1" }
+  s.source       = { :git => "https://github.com/Brite-Apps/WToast.git", :tag => "2.1.2" }
   s.source_files  = "WToast"
 
   s.requires_arc = true
